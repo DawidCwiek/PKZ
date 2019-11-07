@@ -6,4 +6,9 @@ RSpec.describe Warehouse, type: :model do
     it { is_expected.to have_db_column(:warehousable_type).of_type(:string) }
     it { should belong_to(:warehousable) }
   end
+
+  describe "assocation" do
+    it { should have_many(:components) }
+  end
+  
 end

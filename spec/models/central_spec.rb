@@ -6,5 +6,6 @@ RSpec.describe Central, type: :model do
     it { should have_one(:address) }
     it { should have_one(:warehouse) }
     it { should have_many(:stores) }
+    it { should have_many(:products) }
   end
 end
