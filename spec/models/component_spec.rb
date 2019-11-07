@@ -9,7 +9,7 @@ RSpec.describe Component, type: :model do
 
   describe 'validation' do
     it { is_expected.to validate_presence_of(:name) }
-    it { is_expected.to validate_uniqueness_of(:name) }
+    it { is_expected.to validate_uniqueness_of(:name).scoped_to(:warehouse_id) }
     it { is_expected.to validate_presence_of(:cost) }
     it { is_expected.to validate_presence_of(:quantity) }
   end
