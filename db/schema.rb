@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_06_145309) do
+ActiveRecord::Schema.define(version: 2019_11_07_134110) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -32,8 +32,10 @@ ActiveRecord::Schema.define(version: 2019_11_06_145309) do
   end
 
   create_table "stores", force: :cascade do |t|
+    t.bigint "central_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["central_id"], name: "index_stores_on_central_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -41,6 +43,14 @@ ActiveRecord::Schema.define(version: 2019_11_06_145309) do
     t.string "password_digest"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "warehouses", force: :cascade do |t|
+    t.integer "warehousable_id"
+    t.string "warehousable_type"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["warehousable_type", "warehousable_id"], name: "index_warehouses_on_warehousable_type_and_warehousable_id"
   end
 
 end
