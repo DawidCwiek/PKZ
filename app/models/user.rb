@@ -4,4 +4,5 @@ class User < ApplicationRecord
   validates_presence_of :email, :password_digest
 
   has_one :address, as: :addressable
+  has_and_belongs_to_many :centrals
 end

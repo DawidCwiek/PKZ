@@ -7,5 +7,6 @@ RSpec.describe Central, type: :model do
     it { should have_one(:warehouse) }
     it { should have_many(:stores) }
     it { should have_many(:products) }
+    it { should have_and_belong_to_many(:users) }
   end
 end
