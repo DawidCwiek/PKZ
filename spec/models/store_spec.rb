@@ -8,5 +8,6 @@ RSpec.describe Store, type: :model do
     it { should belong_to(:central) }
     it { should have_many(:workers) }
     it { should have_many(:users).through(:workers) }
+    it { should have_many(:orders) }
   end
 end

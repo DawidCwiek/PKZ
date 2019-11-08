@@ -4,4 +4,5 @@ class Store < ApplicationRecord
   belongs_to :central, dependent: :destroy
   has_many :workers
   has_many :users, through: :workers
+  has_many :orders
 end
