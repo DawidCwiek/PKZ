@@ -17,4 +17,9 @@ RSpec.describe Component, type: :model do
   describe "assocation_polymorphic" do
     it { should belong_to(:warehouse) }
   end
+
+  describe "accocation" do
+    it { should have_and_belong_to_many(:product) }
+  end
+  
 end

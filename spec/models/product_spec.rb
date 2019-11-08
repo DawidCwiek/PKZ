@@ -11,7 +11,8 @@ RSpec.describe Product, type: :model do
     it { is_expected.to validate_presence_of(:price) }
   end
 
-  describe "assocation_polymorphic" do
+  describe "assocation" do
     it { should belong_to(:central) }
+    it { should have_and_belong_to_many(:component) }
   end
 end
