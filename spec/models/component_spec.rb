@@ -19,7 +19,7 @@ RSpec.describe Component, type: :model do
   end
 
   describe "accocation" do
-    it { should have_and_belong_to_many(:product) }
+    it { should have_and_belong_to_many(:products) }
   end
   
 end

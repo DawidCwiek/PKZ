@@ -15,5 +15,6 @@ RSpec.describe Order, type: :model do
 
   describe "assocation" do
     it { should belong_to(:store) }
+    it { should have_and_belong_to_many(:products) }
   end
 end

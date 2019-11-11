@@ -13,6 +13,7 @@ RSpec.describe Product, type: :model do
 
   describe "assocation" do
     it { should belong_to(:central) }
-    it { should have_and_belong_to_many(:component) }
+    it { should have_and_belong_to_many(:components) }
+    it { should have_and_belong_to_many(:orders) }
   end
 end
