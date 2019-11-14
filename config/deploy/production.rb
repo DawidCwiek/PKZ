@@ -63,6 +63,5 @@
 set :application, 'pkz'
 set :branch,      'master' # select which branch should be deployed
 set :deploy_to,   "/home/pkz/www/"
-set :rvm_ruby_version, 'pkz'
-server 'api.devdawidcwiek.ovh', user: 'root', roles: %w{app db web}, port: 4000
+server 'api.devdawidcwiek.ovh', user: 'root', roles: %w{app db web}
 
