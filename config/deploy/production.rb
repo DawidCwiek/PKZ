@@ -65,4 +65,3 @@ set :branch,      'master' # select which branch should be deployed
 set :deploy_to,   "/home/pkz/www/"
 server 'api.devdawidcwiek.ovh', user: 'root', roles: %w{app db web}
 
-

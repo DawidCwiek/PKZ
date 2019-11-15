@@ -3,6 +3,6 @@ class HomeController < ApplicationController
   def index
     @centrals = @current_user.centrals
     @stores = @current_user.stores
-    json_response({ centrals: @centrals, stores: @stores })
+    json_response(centrals: @centrals, stores: @stores)
   end
 end
