@@ -3,10 +3,11 @@ class UsersController < ApplicationController
   # POST /signup
   # return authenticated token upon signup
   def create
-    user = User.create!(user_params)
-    auth_token = AuthenticateUser.new(user.email, user.password).call
-    response = { message: Message.account_created, auth_token: auth_token }
-    json_response(response, :created)
+    user = User.create(user_params)
+    user.password = Array.new(8){[*"A".."Z", *"0".."9"].sample}.join
+    user.save!
+    UserMailer.user_password(user).deliver
+    json_response({ message: Message.account_created }, :created)
   end
 
   private
@@ -14,8 +15,6 @@ class UsersController < ApplicationController
   def user_params
     params.permit(
       :email,
-      :password,
-      :password_confirmation,
       :name,
       :surname,
       :phone_number
