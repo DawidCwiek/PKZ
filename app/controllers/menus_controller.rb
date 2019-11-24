@@ -1,5 +1,4 @@
 class MenusController < ApplicationController
-
   def index
     @menus = current_user.centrals.find(params[:central_id]).menu
     json_response(@menus, :ok)
@@ -16,7 +15,7 @@ class MenusController < ApplicationController
     if @menu.save
       json_response(@menu, :created)
     else
-      json_response(Message.item_not_created("Menu"), :unprocessable_entity)
+      json_response(Message.item_not_created('Menu'), :unprocessable_entity)
     end
   end
 

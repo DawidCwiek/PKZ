@@ -4,7 +4,7 @@ class UsersController < ApplicationController
   # return authenticated token upon signup
   def create
     user = User.create(user_params)
-    user.password = Array.new(8){[*"A".."Z", *"0".."9"].sample}.join
+    user.password = Array.new(8) { [*'A'..'Z', *'0'..'9'].sample }.join
     user.save!
     UserMailer.user_password(user).deliver
     json_response({ message: Message.account_created }, :created)

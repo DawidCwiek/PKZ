@@ -1,5 +1,4 @@
 class CentralsController < ApplicationController
-
   def user_central
     @central = current_user.centrals.first
     @address = @central.address
