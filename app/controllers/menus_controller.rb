@@ -11,7 +11,7 @@ class MenusController < ApplicationController
   end
 
   def create
-    @menu = Menu.new(menu_params)
+    @menu = current_user.centrals.find(params[:central_id]).menu.new(menu_params)
 
     if @menu.save
       json_response(@menu, :created)

@@ -51,6 +51,7 @@ RSpec.describe 'Menus Controller', type: :request do
       it 'return created object' do
         expect(json['name']).to eq(valid_attributes.name)
         expect(json['active']).to eq(valid_attributes.active)
+        expect(json['central_id']).to eq(central.id)
       end
     end
 
