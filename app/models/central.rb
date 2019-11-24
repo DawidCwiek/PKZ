@@ -4,4 +4,5 @@ class Central < ApplicationRecord
   has_many :products
   has_many :stores
   has_and_belongs_to_many :users
+  has_many :menu
 end
