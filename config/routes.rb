@@ -3,4 +3,9 @@ Rails.application.routes.draw do
   post 'signup', to: 'users#create'
   get 'home', to: 'home#index'
   get '/central', to: 'centrals#user_central'
+  get '/central/:central_id/menus', to: 'menus#index'
+  get '/central/:central_id/menus/:menu_id', to: 'menus#show'
+  post '/central/:central_id/menus', to: 'menus#create'
+  put '/central/:central_id/menus/:menu_id', to: 'menus#update'
+  delete '/central/:central_id/menus/:menu_id', to: 'menus#destroy'
 end
