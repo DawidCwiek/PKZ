@@ -38,4 +38,8 @@ class Message
   def self.item_not_created(item = 'Item')
     "#{item} could not be created"
   end
+
+  def self.item_not_update(item = 'Item')
+    "#{item} could not be update"
+  end
 end

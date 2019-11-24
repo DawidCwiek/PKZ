@@ -1,11 +1,12 @@
 class MenusController < ApplicationController
+  before_action :set_menu, only: %i[show update destroy]
+
   def index
     @menus = current_user.centrals.find(params[:central_id]).menu
     json_response(@menus, :ok)
   end
 
   def show
-    @menu = current_user.centrals.find(params[:central_id]).menu.find(params[:menu_id])
     json_response(@menu, :ok)
   end
 
@@ -15,17 +16,26 @@ class MenusController < ApplicationController
     if @menu.save
       json_response(@menu, :created)
     else
-      json_response(Message.item_not_created('Menu'), :unprocessable_entity)
+      json_response( { message: Message.item_not_created('Menu'), errors: @menu.errors }, :unprocessable_entity)
     end
   end
 
   def update
+    if @menu.update(menu_params)
+      json_response(@menu, :ok)
+    else
+      json_response( { message: Message.item_not_update('Menu'), errors: @menu.errors }, :unprocessable_entity)
+    end
   end
 
   def destroy
   end
 
   private
+
+  def set_menu
+    @menu = current_user.centrals.find(params[:central_id]).menu.find(params[:menu_id])
+  end
 
   def menu_params
     params.permit(:name, :active, :central_id)
