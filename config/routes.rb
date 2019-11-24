@@ -7,4 +7,5 @@ Rails.application.routes.draw do
   get '/central/:central_id/menus/:menu_id', to: 'menus#show'
   post '/central/:central_id/menus', to: 'menus#create'
   put '/central/:central_id/menus/:menu_id', to: 'menus#update'
+  delete '/central/:central_id/menus/:menu_id', to: 'menus#destroy'
 end

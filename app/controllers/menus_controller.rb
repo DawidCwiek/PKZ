@@ -29,6 +29,8 @@ class MenusController < ApplicationController
   end
 
   def destroy
+    @menu.destroy
+    json_response(nil, :no_content)
   end
 
   private

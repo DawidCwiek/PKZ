@@ -91,4 +91,14 @@ RSpec.describe 'Menus Controller', type: :request do
       end
     end
   end
+
+  describe 'delete /central/:central_id/menus/:menu_id' do
+    context 'update correct params' do
+      subject { delete "/central/#{central.id}/menus/#{menu_1.id}", params: {}, headers: headers }
+
+      it 'delete menu' do
+        expect { subject }.to change(Menu, :count).by(-1)
+      end
+    end
+  end
 end
