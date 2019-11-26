@@ -9,6 +9,10 @@ RSpec.describe 'Menus Controller', type: :request do
   let!(:menu_3) { create(:menu, central_id: central.id) }
   let(:valid_attributes) { build(:menu) }
   let(:invalid_attributes) { build(:menu, name: nil) }
+  let!(:product_1) {create(:product, central_id: central.id)}
+  let!(:product_2) {create(:product, central_id: central.id)}
+  let!(:product_3) {create(:product, central_id: central.id)}
+  before { menu_3.products << [product_1, product_2] }
 
   describe 'GET /central/:central_id/menus' do
     before { get "/central/#{central.id}/menus", params: {}, headers: headers }
@@ -25,7 +29,7 @@ RSpec.describe 'Menus Controller', type: :request do
   end
 
   describe 'GET /central/:central_id/menus/:menu_id' do
-    before { get "/central/#{central.id}/menus/#{menu_2.id}", params: {}, headers: headers }
+    before { get "/central/#{central.id}/menus/#{menu_3.id}", params: {}, headers: headers }
 
     context 'when centrals menu id exists' do
       it 'returns status code 200' do
@@ -33,25 +37,29 @@ RSpec.describe 'Menus Controller', type: :request do
       end
 
       it 'return values' do
-        expect(json['id']).to eq(menu_2.id)
-        expect(json['name']).to eq(menu_2.name)
-        expect(json['active']).to eq(menu_2.active)
+        expect(json['menu']['id']).to eq(menu_3.id)
+        expect(json['menu']['name']).to eq(menu_3.name)
+        expect(json['menu']['active']).to eq(menu_3.active)
+        expect(json['products'].first['id']).to eq(product_1.id)
+        expect(json['products'].last['id']).to eq(product_2.id)
       end
     end
   end
 
   describe 'Post /central/:central_id/menus/' do
     context 'create correct params' do
-      before { post "/central/#{central.id}/menus/", params: valid_attributes.to_json, headers: headers }
+      before { post "/central/#{central.id}/menus/", params: { menu: valid_attributes, products:[product_1.id, product_2.id] }.to_json, headers: headers }
 
       it 'returns status code 201' do
         expect(response).to have_http_status(201)
       end
 
       it 'return created object' do
-        expect(json['name']).to eq(valid_attributes.name)
-        expect(json['active']).to eq(valid_attributes.active)
-        expect(json['central_id']).to eq(central.id)
+        expect(json['menu']['name']).to eq(valid_attributes.name)
+        expect(json['menu']['active']).to eq(valid_attributes.active)
+        expect(json['menu']['central_id']).to eq(central.id)
+        expect(json['products'].first['id']).to eq(product_1.id)
+        expect(json['products'].last['id']).to eq(product_2.id)
       end
     end
 
@@ -69,15 +77,17 @@ RSpec.describe 'Menus Controller', type: :request do
 
   describe 'Put /central/:central_id/menus/:menu_id' do
     context 'update correct params' do
-      before { put "/central/#{central.id}/menus/#{menu_3.id}", params: valid_attributes.to_json, headers: headers }
+      before { put "/central/#{central.id}/menus/#{menu_3.id}", params: { menu: valid_attributes, products:[product_1.id, product_3.id] }.to_json, headers: headers }
 
       it 'returns status code 200' do
         expect(response).to have_http_status(200)
       end
 
       it 'return update object' do
-        expect(json['name']).to eq(valid_attributes.name)
-        expect(json['active']).to eq(valid_attributes.active)
+        expect(json['menu']['name']).to eq(valid_attributes.name)
+        expect(json['menu']['active']).to eq(valid_attributes.active)
+        expect(json['products'].first['id']).to eq(product_1.id)
+        expect(json['products'].last['id']).to eq(product_3.id)
       end
     end
 
