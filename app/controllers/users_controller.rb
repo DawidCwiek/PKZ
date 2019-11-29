@@ -6,6 +6,15 @@ class UsersController < ApplicationController
     user = User.create(user_params)
     user.password = Array.new(8) { [*'A'..'Z', *'0'..'9'].sample }.join
     user.save!
+   
+    if params[:central_id].present?
+      user.centrals << Central.find(params[:central_id])
+    end
+
+    if params[:store_id].present?
+      user.stores << Store.find(params[:store_id])
+    end
+    
     UserMailer.user_password(user).deliver
     json_response({ message: Message.account_created }, :created)
   end
