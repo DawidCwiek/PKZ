@@ -2,41 +2,41 @@ require: rubocop
 
 AllCops:
   Exclude:
-    - 'vendor/**/*'
-    - 'bin/**/*'
-    - 'db/**/*'
-    - 'config/**/*'
-    - 'script/**/*'
-    - 'spec/**/*'
-    - 'node_modules/**/*'
-  TargetRubyVersion:                   2.6
+    - "vendor/**/*"
+    - "bin/**/*"
+    - "db/**/*"
+    - "config/**/*"
+    - "script/**/*"
+    - "spec/**/*"
+    - "node_modules/**/*"
+  TargetRubyVersion: 2.6
 Metrics/LineLength:
-  Max:                                 120
+  Max: 130
 Metrics/MethodLength:
-  Max:                                 25
+  Max: 25
 Metrics/AbcSize:
-  Max:                                 50
+  Max: 50
 Metrics/ClassLength:
-  Enabled:                             false
+  Enabled: false
 Rails:
-  Enabled:                             true
+  Enabled: true
 Style/Documentation:
-  Enabled:                             false
+  Enabled: false
 Layout/AlignParameters:
-  EnforcedStyle:                       with_fixed_indentation
+  EnforcedStyle: with_fixed_indentation
 Layout/MultilineMethodCallIndentation:
-  EnforcedStyle:                       indented
+  EnforcedStyle: indented
 Layout/DotPosition:
-  EnforcedStyle:                       trailing
+  EnforcedStyle: trailing
 Layout/MultilineHashBraceLayout:
-  Enabled:                             false
+  Enabled: false
 Style/Lambda:
-  Enabled:                             false
+  Enabled: false
 Style/CharacterLiteral:
-  Enabled:                             false
+  Enabled: false
 Style/ClassAndModuleChildren:
-  Enabled:                             false
+  Enabled: false
 Style/FrozenStringLiteralComment:
-  Enabled:                             false
+  Enabled: false
 Naming/UncommunicativeMethodParamName:
-  Enabled:                             false
+  Enabled: false
