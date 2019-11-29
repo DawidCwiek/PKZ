@@ -14,4 +14,6 @@ Rails.application.routes.draw do
   get '/central/:central_id/products', to: 'products#index'
   get '/central/:central_id/products/:product_id', to: 'products#show'
   post '/central/:central_id/products', to: 'products#create'
+  put '/central/:central_id/products/:product_id', to: 'products#update'
+  delete '/central/:central_id/products/:product_id', to: 'products#destroy'
 end

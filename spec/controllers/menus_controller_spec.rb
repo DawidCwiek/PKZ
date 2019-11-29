@@ -42,6 +42,7 @@ RSpec.describe 'Menus Controller', type: :request do
         expect(json['menu']['active']).to eq(menu_3.active)
         expect(json['products'].first['id']).to eq(product_1.id)
         expect(json['products'].last['id']).to eq(product_2.id)
+        expect(json['products'].size).to eq(2)
       end
     end
   end
@@ -60,6 +61,7 @@ RSpec.describe 'Menus Controller', type: :request do
         expect(json['menu']['central_id']).to eq(central.id)
         expect(json['products'].first['id']).to eq(product_1.id)
         expect(json['products'].last['id']).to eq(product_2.id)
+        expect(json['products'].size).to eq(2)
       end
     end
 
@@ -88,6 +90,7 @@ RSpec.describe 'Menus Controller', type: :request do
         expect(json['menu']['active']).to eq(valid_attributes.active)
         expect(json['products'].first['id']).to eq(product_1.id)
         expect(json['products'].last['id']).to eq(product_3.id)
+        expect(json['products'].size).to eq(2)
       end
     end
 

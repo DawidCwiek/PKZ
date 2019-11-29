@@ -35,7 +35,7 @@ RSpec.describe 'Products Controller', type: :request do
   describe 'GET /central/:central_id/products/:products' do
     before { get "/central/#{central.id}/products/#{product_3.id}", params: {}, headers: headers }
 
-    context 'when centrals menu id exists' do
+    context 'when centrals products id exists' do
       it 'returns status code 200' do
         expect(response).to have_http_status(200)
       end
@@ -46,6 +46,7 @@ RSpec.describe 'Products Controller', type: :request do
         expect(json['product']['price']).to eq(product_3.price.to_s)
         expect(json['components'].first['id']).to eq(component_1.id)
         expect(json['components'].last['id']).to eq(component_3.id)
+        expect(json['components'].size).to eq(3)
       end
     end
   end
@@ -63,6 +64,7 @@ RSpec.describe 'Products Controller', type: :request do
         expect(json['product']['price']).to eq(valid_attributes.price.to_s)
         expect(json['components'].first['id']).to eq(component_1.id)
         expect(json['components'].last['id']).to eq(component_2.id)
+        expect(json['components'].size).to eq(2)
       end
     end
 
@@ -78,4 +80,42 @@ RSpec.describe 'Products Controller', type: :request do
     end
   end
 
+  describe 'Put /central/:central_id/products/:products_id' do
+    context 'update correct params' do
+      before { put "/central/#{central.id}/products/#{product_1.id}", params: { product: valid_attributes, components:[component_1.id, component_3.id] }.to_json, headers: headers }
+
+      it 'returns status code 200' do
+        expect(response).to have_http_status(200)
+      end
+
+      it 'return update object' do
+        expect(json['product']['name']).to eq(valid_attributes.name)
+        expect(json['product']['price']).to eq(valid_attributes.price.to_s)
+        expect(json['components'].first['id']).to eq(component_1.id)
+        expect(json['components'].last['id']).to eq(component_3.id)
+        expect(json['components'].size).to eq(2)
+      end
+    end
+
+    context 'update uncorrect params' do
+      before { put "/central/#{central.id}/products/#{product_1.id}", params: invalid_attributes.to_json, headers: headers }
+      it 'returns status code 422' do
+        expect(response).to have_http_status(422)
+      end
+
+      it 'return error message' do
+        expect(json['message']).to eq(Message.item_not_update('Product'))
+      end
+    end
+  end
+
+  describe 'delete /central/:central_id/products/:products_id' do
+    context 'update correct params' do
+      subject { delete "/central/#{central.id}/products/#{product_1.id}", params: {}, headers: headers }
+
+      it 'delete menu' do
+        expect { subject }.to change(Product, :count).by(-1)
+      end
+    end
+  end
 end

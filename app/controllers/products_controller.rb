@@ -1,5 +1,5 @@
 class ProductsController < ApplicationController
-  before_action :set_product, only: %i[show]
+  before_action :set_product, only: %i[show update destroy]
 
   def index
     @products = current_user.centrals.find(params[:central_id]).products
@@ -18,6 +18,21 @@ class ProductsController < ApplicationController
     else
       json_response({ message: Message.item_not_created('Product'), errors: @product.errors }, :unprocessable_entity)
     end
+  end
+
+  def update
+    if @product.update(product_params)
+      @product.components.destroy_all
+      @product.components << current_user.centrals.find(params[:central_id]).warehouse.components.find(params[:components])
+      json_response({ product: @product, components: @product.components }, :ok)
+    else
+      json_response({ message: Message.item_not_update('Product'), errors: @product.errors }, :unprocessable_entity)
+    end
+  end
+
+  def destroy
+    @product.destroy
+    json_response(nil, :no_content)
   end
 
   private
