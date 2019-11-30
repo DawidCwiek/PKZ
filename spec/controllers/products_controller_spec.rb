@@ -41,9 +41,9 @@ RSpec.describe 'Products Controller', type: :request do
       end
 
       it 'return values' do
-        expect(json['product']['id']).to eq(product_3.id)
-        expect(json['product']['name']).to eq(product_3.name)
-        expect(json['product']['price']).to eq(product_3.price.to_s)
+        expect(json['id']).to eq(product_3.id)
+        expect(json['name']).to eq(product_3.name)
+        expect(json['price']).to eq(product_3.price.to_s)
         expect(json['components'].first['id']).to eq(component_1.id)
         expect(json['components'].last['id']).to eq(component_3.id)
         expect(json['components'].size).to eq(3)
@@ -60,8 +60,8 @@ RSpec.describe 'Products Controller', type: :request do
       end
 
       it 'return created object' do
-        expect(json['product']['name']).to eq(valid_attributes.name)
-        expect(json['product']['price']).to eq(valid_attributes.price.to_s)
+        expect(json['name']).to eq(valid_attributes.name)
+        expect(json['price']).to eq(valid_attributes.price.to_s)
         expect(json['components'].first['id']).to eq(component_1.id)
         expect(json['components'].last['id']).to eq(component_2.id)
         expect(json['components'].size).to eq(2)
@@ -89,8 +89,8 @@ RSpec.describe 'Products Controller', type: :request do
       end
 
       it 'return update object' do
-        expect(json['product']['name']).to eq(valid_attributes.name)
-        expect(json['product']['price']).to eq(valid_attributes.price.to_s)
+        expect(json['name']).to eq(valid_attributes.name)
+        expect(json['price']).to eq(valid_attributes.price.to_s)
         expect(json['components'].first['id']).to eq(component_1.id)
         expect(json['components'].last['id']).to eq(component_3.id)
         expect(json['components'].size).to eq(2)

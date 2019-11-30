@@ -7,14 +7,14 @@ class MenusController < ApplicationController
   end
 
   def show
-    json_response({ menu: @menu, products: @menu.products }, :ok)
+    json_response(@menu, :ok)
   end
 
   def create
     @menu = current_user.centrals.find(params[:central_id]).menu.new(menu_params)
     if @menu.save
       @menu.products << current_user.centrals.find(params[:central_id]).products.find(products_params[:products])
-      json_response({ menu: @menu, products: @menu.products }, :created)
+      json_response(@menu, :created)
     else
       json_response({ message: Message.item_not_created('Menu'), errors: @menu.errors }, :unprocessable_entity)
     end
@@ -24,7 +24,7 @@ class MenusController < ApplicationController
     if @menu.update(menu_params)
       @menu.products.destroy_all
       @menu.products << current_user.centrals.find(params[:central_id]).products.find(products_params[:products])
-      json_response({ menu: @menu, products: @menu.products }, :ok)
+      json_response(@menu, :ok)
     else
       json_response({ message: Message.item_not_update('Menu'), errors: @menu.errors }, :unprocessable_entity)
     end
