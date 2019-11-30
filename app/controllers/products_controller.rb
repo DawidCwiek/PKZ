@@ -13,7 +13,7 @@ class ProductsController < ApplicationController
   def create
     @product = current_user.centrals.find(params[:central_id]).products.new(product_params)
     if @product.save
-      @product.components << current_user.centrals.find(params[:central_id]).warehouse.components.find(params[:components])
+      add_components
       json_response(@product, :created)
     else
       json_response({ message: Message.item_not_created('Product'), errors: @product.errors }, :unprocessable_entity)
@@ -23,7 +23,7 @@ class ProductsController < ApplicationController
   def update
     if @product.update(product_params)
       @product.components.destroy_all
-      @product.components << current_user.centrals.find(params[:central_id]).warehouse.components.find(params[:components])
+      add_components
       json_response(@product, :ok)
     else
       json_response({ message: Message.item_not_update('Product'), errors: @product.errors }, :unprocessable_entity)
@@ -42,6 +42,12 @@ class ProductsController < ApplicationController
   end
 
   def product_params
-    params.require(:product).permit(:name, :price, :central_id)
+    params.require(:product).permit(:name, :price, :central_id, :image)
+  end
+
+  def add_components
+    return unless params[:components].present?
+
+    @product.components << current_user.centrals.find(params[:central_id]).warehouse.components.find(params[:components])
   end
 end

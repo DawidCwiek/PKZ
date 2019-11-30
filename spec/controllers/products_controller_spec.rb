@@ -44,6 +44,7 @@ RSpec.describe 'Products Controller', type: :request do
         expect(json['id']).to eq(product_3.id)
         expect(json['name']).to eq(product_3.name)
         expect(json['price']).to eq(product_3.price.to_s)
+        expect(json['image_url']).to eq(product_3.image_url)
         expect(json['components'].first['id']).to eq(component_1.id)
         expect(json['components'].last['id']).to eq(component_3.id)
         expect(json['components'].size).to eq(3)
