@@ -37,9 +37,9 @@ RSpec.describe 'Menus Controller', type: :request do
       end
 
       it 'return values' do
-        expect(json['menu']['id']).to eq(menu_3.id)
-        expect(json['menu']['name']).to eq(menu_3.name)
-        expect(json['menu']['active']).to eq(menu_3.active)
+        expect(json['id']).to eq(menu_3.id)
+        expect(json['name']).to eq(menu_3.name)
+        expect(json['active']).to eq(menu_3.active)
         expect(json['products'].first['id']).to eq(product_1.id)
         expect(json['products'].last['id']).to eq(product_2.id)
         expect(json['products'].size).to eq(2)
@@ -56,9 +56,9 @@ RSpec.describe 'Menus Controller', type: :request do
       end
 
       it 'return created object' do
-        expect(json['menu']['name']).to eq(valid_attributes.name)
-        expect(json['menu']['active']).to eq(valid_attributes.active)
-        expect(json['menu']['central_id']).to eq(central.id)
+        expect(json['name']).to eq(valid_attributes.name)
+        expect(json['active']).to eq(valid_attributes.active)
+        expect(json['central_id']).to eq(central.id)
         expect(json['products'].first['id']).to eq(product_1.id)
         expect(json['products'].last['id']).to eq(product_2.id)
         expect(json['products'].size).to eq(2)
@@ -86,8 +86,8 @@ RSpec.describe 'Menus Controller', type: :request do
       end
 
       it 'return update object' do
-        expect(json['menu']['name']).to eq(valid_attributes.name)
-        expect(json['menu']['active']).to eq(valid_attributes.active)
+        expect(json['name']).to eq(valid_attributes.name)
+        expect(json['active']).to eq(valid_attributes.active)
         expect(json['products'].first['id']).to eq(product_1.id)
         expect(json['products'].last['id']).to eq(product_3.id)
         expect(json['products'].size).to eq(2)
