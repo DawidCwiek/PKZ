@@ -10,14 +10,10 @@ class Product < ApplicationRecord
   validates :price, presence: true
 
   def image_url
-    if self.image.attached?
-      Rails.application.routes.url_helpers.rails_blob_path(self.image, only_path: true)
-    else
-      nil
-    end
+    Rails.application.routes.url_helpers.rails_blob_path(image, only_path: true) if image.attached?
   end
 
-  def as_json(options={})
+  def as_json(*)
     super(methods: :image_url, include: :components)
   end
 end
