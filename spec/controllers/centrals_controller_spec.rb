@@ -20,19 +20,18 @@ RSpec.describe 'Centrals Controller', type: :request do
       end
 
       it 'returns centrall object' do
-        expect(json.size).to eq(4)
+        expect(json.size).to eq(6)
       end
     end
 
     context 'correct response' do
       it 'centrall stores employees' do
-        expect(json['central']['id']).to eq(central.id)
+        expect(json['id']).to eq(central.id)
         expect(json['stores'].first['id']).to eq(store.id)
         expect(json['stores'].last['id']).to eq(store_2.id)
-        expect(json['employees'].last['id']).to eq(employee_2.id)
+        expect(json['users'].last['id']).to eq(employee_2.id)
         expect(json['address']['id']).to eq(address.id)
       end
-
     end
   end
 end

@@ -7,6 +7,12 @@ class Central < ApplicationRecord
   has_many :menu
   after_create :add_warehouse
 
+  # rubocop:disable Style/SymbolArray
+  def as_json(*)
+    super(include: [:address, :stores, users: { only: [:id, :email, :name, :surname, :phone_number] }])
+  end
+  # rubocop:enable Style/SymbolArray
+
   private
 
   def add_warehouse
