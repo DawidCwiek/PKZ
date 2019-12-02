@@ -8,10 +8,9 @@ RSpec.describe 'Products Controller', type: :request do
   let!(:product_2) { create(:product, central_id: central.id) }
   let!(:product_3) { create(:product, central_id: central.id) }
   before { central.users << user }
-  let!(:warehouse) { central.create_warehouse }
-  let!(:component_1) { create(:component, warehouse: warehouse) }
-  let!(:component_2) { create(:component, warehouse: warehouse) }
-  let!(:component_3) { create(:component, warehouse: warehouse) }
+  let!(:component_1) { create(:component, warehouse: central.warehouse) }
+  let!(:component_2) { create(:component, warehouse: central.warehouse) }
+  let!(:component_3) { create(:component, warehouse: central.warehouse) }
   before { product_3.components << [component_1, component_2, component_3] }
   let(:valid_attributes) { build(:product) }
   let(:invalid_attributes) { build(:product, name: nil) }
@@ -114,7 +113,7 @@ RSpec.describe 'Products Controller', type: :request do
     context 'update correct params' do
       subject { delete "/central/#{central.id}/products/#{product_1.id}", params: {}, headers: headers }
 
-      it 'delete menu' do
+      it 'delete product' do
         expect { subject }.to change(Product, :count).by(-1)
       end
     end
