@@ -9,7 +9,7 @@ class Central < ApplicationRecord
 
   # rubocop:disable Style/SymbolArray
   def as_json(*)
-    super(include: [:address, :stores, users: { only: [:id, :email, :name, :surname, :phone_number] }])
+    super(include: [:address, stores: { include: :address}, users: { only: [:id, :email, :name, :surname, :phone_number] }])
   end
   # rubocop:enable Style/SymbolArray
 
