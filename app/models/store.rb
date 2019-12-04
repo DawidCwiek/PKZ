@@ -5,4 +5,8 @@ class Store < ApplicationRecord
   has_many :workers
   has_many :users, through: :workers
   has_many :orders
+
+  def as_json(*)
+    super(include: [:address])
+  end
 end
