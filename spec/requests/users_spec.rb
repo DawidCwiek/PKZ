@@ -1,10 +1,14 @@
 require 'rails_helper'
 
 RSpec.describe 'Users API', type: :request do
-  let(:user) { build(:user) }
+  let!(:user) { create(:user) }
+  let!(:headers) { valid_headers }
   let!(:central) { create(:central) }
   let!(:store) { create(:store) }
-  let(:headers) { valid_headers.except('Authorization') }
+  before {
+    central.users << user;
+    store.users << user
+  }
   let(:valid_attributes_central) { attributes_for(:user, central_id: central.id) }
   let(:valid_attributes_store) { attributes_for(:user, store_id: store.id) }
 
