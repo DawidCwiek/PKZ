@@ -6,6 +6,8 @@ class Store < ApplicationRecord
   has_many :users, through: :workers
   has_many :orders
 
+  validates :name, presence: true
+
   def as_json(*)
     super(include: [:address])
   end
