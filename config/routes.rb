@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   get 'home', to: 'home#index'
   # central
   get '/central', to: 'centrals#user_central'
+  post '/central/:central_id/store', to: 'centrals#create_store'
   # central menus
   get '/central/:central_id/menus', to: 'menus#index'
   get '/central/:central_id/menus/:menu_id', to: 'menus#show'

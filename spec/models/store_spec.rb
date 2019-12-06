@@ -10,4 +10,7 @@ RSpec.describe Store, type: :model do
     it { should have_many(:users).through(:workers) }
     it { should have_many(:orders) }
   end
+  context "validation" do
+    it { should validate_presence_of(:name) }
+  end
 end
