@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_12_06_101705) do
+ActiveRecord::Schema.define(version: 2019_12_19_202507) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -61,12 +61,11 @@ ActiveRecord::Schema.define(version: 2019_12_06_101705) do
 
   create_table "components", force: :cascade do |t|
     t.string "name"
-    t.integer "quantity", default: 0
     t.decimal "cost", precision: 10, scale: 2
-    t.bigint "warehouse_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["warehouse_id"], name: "index_components_on_warehouse_id"
+    t.bigint "central_id"
+    t.index ["central_id"], name: "index_components_on_central_id"
   end
 
   create_table "components_products", id: false, force: :cascade do |t|
@@ -116,6 +115,14 @@ ActiveRecord::Schema.define(version: 2019_12_06_101705) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["central_id"], name: "index_products_on_central_id"
+  end
+
+  create_table "quantities", force: :cascade do |t|
+    t.integer "component_id"
+    t.integer "warehouse_id"
+    t.integer "quantity", default: 0
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "stores", force: :cascade do |t|
