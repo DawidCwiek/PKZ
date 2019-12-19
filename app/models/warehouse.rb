@@ -1,4 +1,4 @@
 class Warehouse < ApplicationRecord
-  has_many :components
-  belongs_to :warehousable, polymorphic: true, dependent: :destroy
+  belongs_to :warehousable, polymorphic: true
+  has_many :quantities
 end

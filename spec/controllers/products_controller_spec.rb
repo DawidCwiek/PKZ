@@ -8,9 +8,9 @@ RSpec.describe 'Products Controller', type: :request do
   let!(:product_2) { create(:product, central_id: central.id) }
   let!(:product_3) { create(:product, central_id: central.id) }
   before { central.users << user }
-  let!(:component_1) { create(:component, warehouse: central.warehouse) }
-  let!(:component_2) { create(:component, warehouse: central.warehouse) }
-  let!(:component_3) { create(:component, warehouse: central.warehouse) }
+  let!(:component_1) { create(:component, central_id: central.id) }
+  let!(:component_2) { create(:component, central_id: central.id) }
+  let!(:component_3) { create(:component, central_id: central.id) }
   before { product_3.components << [component_1, component_2, component_3] }
   let(:valid_attributes) { build(:product) }
   let(:invalid_attributes) { build(:product, name: nil) }

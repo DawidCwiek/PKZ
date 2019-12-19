@@ -48,6 +48,6 @@ class ProductsController < ApplicationController
   def add_components
     return unless params[:components].present?
 
-    @product.components << current_user.centrals.find(params[:central_id]).warehouse.components.find(params[:components])
+    @product.components << current_user.centrals.find(params[:central_id]).components.find(params[:components])
   end
 end

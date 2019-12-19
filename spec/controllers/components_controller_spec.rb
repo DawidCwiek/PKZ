@@ -6,9 +6,9 @@ RSpec.describe 'Components Controller', type: :request do
   let!(:central) { create(:central) }
   before { central.users << user }
 
-  let!(:component_1) { create(:component, warehouse: central.warehouse) }
-  let!(:component_2) { create(:component, warehouse: central.warehouse) }
-  let!(:component_3) { create(:component, warehouse: central.warehouse) }
+  let!(:component_1) { create(:component, central_id: central.id) }
+  let!(:component_2) { create(:component, central_id: central.id) }
+  let!(:component_3) { create(:component, central_id: central.id) }
   
   let(:valid_attributes) { build(:component) }
   let(:invalid_attributes) { build(:component, name: nil) }
@@ -39,7 +39,7 @@ RSpec.describe 'Components Controller', type: :request do
 
       it 'return values' do
         expect(json['id']).to eq(component_3.id)
-        expect(json['quantity']).to eq(component_3.quantity)
+        expect(json['name']).to eq(component_3.name)
         expect(json['cost']).to eq(component_3.cost.to_s)
       end
     end
@@ -55,7 +55,6 @@ RSpec.describe 'Components Controller', type: :request do
 
       it 'return created object' do
         expect(json['name']).to eq(valid_attributes.name)
-        expect(json['quantity']).to eq(valid_attributes.quantity)
         expect(json['cost']).to eq(valid_attributes.cost.to_s)
        
       end
@@ -84,7 +83,6 @@ RSpec.describe 'Components Controller', type: :request do
       it 'return update object' do
         expect(json['id']).to eq(component_1.id)
         expect(json['name']).to eq(valid_attributes.name)
-        expect(json['quantity']).to eq(valid_attributes.quantity)
         expect(json['cost']).to eq(valid_attributes.cost.to_s)
       end
     end

@@ -5,6 +5,7 @@ class Central < ApplicationRecord
   has_many :stores
   has_and_belongs_to_many :users
   has_many :menu
+  has_many :components
   after_create :add_warehouse
 
   # rubocop:disable Style/SymbolArray

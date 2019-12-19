@@ -2,7 +2,7 @@ class ComponentsController < ApplicationController
   before_action :set_component, only: %i[show update destroy]
 
   def index
-    @components = current_user.centrals.find(params[:central_id]).warehouse.components
+    @components = current_user.centrals.find(params[:central_id]).components
     json_response(@components, :ok)
   end
 
@@ -11,7 +11,7 @@ class ComponentsController < ApplicationController
   end
 
   def create
-    @component = current_user.centrals.find(params[:central_id]).warehouse.components.new(product_params)
+    @component = current_user.centrals.find(params[:central_id]).components.new(product_params)
     if @component.save
       json_response(@component, :created)
     else
@@ -35,7 +35,7 @@ class ComponentsController < ApplicationController
   private
 
   def set_component
-    @component = current_user.centrals.find(params[:central_id]).warehouse.components.find(params[:component_id])
+    @component = current_user.centrals.find(params[:central_id]).components.find(params[:component_id])
   end
 
   def product_params
