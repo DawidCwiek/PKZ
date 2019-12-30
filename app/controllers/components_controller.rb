@@ -11,7 +11,7 @@ class ComponentsController < ApplicationController
   end
 
   def create
-    @component = current_user.centrals.find(params[:central_id]).components.new(product_params)
+    @component = current_user.centrals.find(params[:central_id]).components.new(component_params)
     if @component.save
       json_response(@component, :created)
     else
@@ -20,7 +20,7 @@ class ComponentsController < ApplicationController
   end
 
   def update
-    if @component.update(product_params)
+    if @component.update(component_params)
       json_response(@component, :ok)
     else
       json_response({ message: Message.item_not_update('Component'), errors: @component.errors }, :unprocessable_entity)
@@ -38,7 +38,7 @@ class ComponentsController < ApplicationController
     @component = current_user.centrals.find(params[:central_id]).components.find(params[:component_id])
   end
 
-  def product_params
+  def component_params
     params.require(:component).permit(:name, :quantity, :warehouse_id, :cost)
   end
 end
