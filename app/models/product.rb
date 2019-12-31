@@ -1,7 +1,7 @@
 class Product < ApplicationRecord
   has_one_attached :image
 
-  belongs_to :central, dependent: :destroy
+  belongs_to :central
   has_and_belongs_to_many :components
   has_and_belongs_to_many :orders
   has_and_belongs_to_many :menus
