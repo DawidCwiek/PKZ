@@ -13,7 +13,7 @@ class MenusController < ApplicationController
   def create
     @menu = current_user.centrals.find(params[:central_id]).menu.new(menu_params)
     if @menu.save
-      @menu.products << current_user.centrals.find(params[:central_id]).products.find(products_params[:products])
+      add_products
       json_response(@menu, :created)
     else
       json_response({ message: Message.item_not_created('Menu'), errors: @menu.errors }, :unprocessable_entity)
@@ -23,7 +23,7 @@ class MenusController < ApplicationController
   def update
     if @menu.update(menu_params)
       @menu.products.destroy_all
-      @menu.products << current_user.centrals.find(params[:central_id]).products.find(products_params[:products])
+      add_products
       json_response(@menu, :ok)
     else
       json_response({ message: Message.item_not_update('Menu'), errors: @menu.errors }, :unprocessable_entity)
@@ -45,7 +45,9 @@ class MenusController < ApplicationController
     params.require(:menu).permit(:name, :active, :central_id)
   end
 
-  def products_params
-    params.permit(products: [])
+  def add_products
+    return unless params[:products].present?
+
+    @menu.products << current_user.centrals.find(params[:central_id]).products.find(params[:products])
   end
 end
