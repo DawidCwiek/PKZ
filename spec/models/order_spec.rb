@@ -10,7 +10,6 @@ RSpec.describe Order, type: :model do
   describe 'validation' do
     it { is_expected.to validate_presence_of(:profit) }
     it { is_expected.to validate_presence_of(:total_price) }
-    it { is_expected.to validate_presence_of(:issued) }
   end
 
   describe "assocation" do

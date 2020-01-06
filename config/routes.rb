@@ -23,4 +23,8 @@ Rails.application.routes.draw do
   post '/central/:central_id/components', to: 'components#create'
   put '/central/:central_id/components/:component_id', to: 'components#update'
   delete '/central/:central_id/components/:component_id', to: 'components#destroy'
+
+  # orders
+  post '/store/:store_id/orders', to: 'orders#create'
+  put '/store/:store_id/orders/:order_id', to: 'orders#update_issued'
 end
