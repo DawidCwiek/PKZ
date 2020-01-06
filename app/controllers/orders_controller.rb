@@ -16,6 +16,11 @@ class OrdersController < ApplicationController
     json_response(nil, :no_content)
   end
 
+  def to_do
+    @orders = @store.orders.where(issued: false)
+    json_response(@orders, :ok)
+  end
+
   private
 
   def order_params

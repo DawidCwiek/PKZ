@@ -27,4 +27,5 @@ Rails.application.routes.draw do
   # orders
   post '/store/:store_id/orders', to: 'orders#create'
   put '/store/:store_id/orders/:order_id', to: 'orders#update_issued'
+  get '/store/:store_id/orders/to_do', to: 'orders#to_do'
 end
