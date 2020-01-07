@@ -1,7 +1,6 @@
 Rails.application.routes.draw do
   post 'auth/login', to: 'authentication#authenticate'
   post 'signup', to: 'users#create'
-  get 'home', to: 'home#index'
   # central
   get '/central', to: 'centrals#user_central'
   post '/central/:central_id/store', to: 'centrals#create_store'
@@ -23,4 +22,11 @@ Rails.application.routes.draw do
   post '/central/:central_id/components', to: 'components#create'
   put '/central/:central_id/components/:component_id', to: 'components#update'
   delete '/central/:central_id/components/:component_id', to: 'components#destroy'
+
+  # orders
+  post '/store/:store_id/orders', to: 'orders#create'
+  put '/store/:store_id/orders/:order_id', to: 'orders#update_issued'
+  get '/store/:store_id/orders/to_do', to: 'orders#to_do'
+
+  mount ActionCable.server => '/cable'
 end

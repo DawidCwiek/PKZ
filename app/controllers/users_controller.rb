@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   def create
     user = User.new(user_params)
-    user.password = Array.new(8) { [*'A'..'Z', *'0'..'9'].sample }.join
+    user.password = Array.new(8) { [*'A'..'Z', *'a'..'z', *'0'..'9'].sample }.join
     user.save!
 
     user.centrals << current_user.centrals.find(params[:central_id]) if params[:central_id].present?

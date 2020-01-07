@@ -4,5 +4,12 @@ class Order < ApplicationRecord
 
   validates_presence_of :profit
   validates_presence_of :total_price
-  validates_presence_of :issued
+
+  def issued!
+    update_attribute(:issued, true)
+  end
+
+  def as_json(*)
+    super(include: :products)
+  end
 end
