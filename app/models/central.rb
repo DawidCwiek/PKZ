@@ -1,11 +1,11 @@
 class Central < ApplicationRecord
-  has_one :address, as: :addressable
-  has_one :warehouse, as: :warehousable
-  has_many :products
-  has_many :stores
+  has_one :address, as: :addressable, dependent: :destroy
+  has_one :warehouse, as: :warehousable, dependent: :destroy
+  has_many :products, dependent: :destroy
+  has_many :stores, dependent: :destroy
   has_and_belongs_to_many :users
-  has_many :menu
-  has_many :components
+  has_many :menu, dependent: :destroy
+  has_many :components, dependent: :destroy
   after_create :add_warehouse
 
   # rubocop:disable Style/SymbolArray
