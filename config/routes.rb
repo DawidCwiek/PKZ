@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   post 'signup', to: 'users#create'
   # central
   get '/central', to: 'centrals#user_central'
+  get '/active_menu/:store_id', to: 'centrals#active_menu'
   post '/central/:central_id/store', to: 'centrals#create_store'
   # central menus
   get '/central/:central_id/menus', to: 'menus#index'

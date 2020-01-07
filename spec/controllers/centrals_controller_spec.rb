@@ -11,6 +11,7 @@ RSpec.describe 'Centrals Controller', type: :request do
   let(:store_valid_attributes) { build(:store, central_id: central.id) }
   let(:store_invalid_attributes) { build(:store, central_id: central.id, name: nil) }
   before {central.users << [ employee, employee_2 ]}
+  before { user.workers.create!(store_id: store.id) }
   
   describe 'GET /central' do
     before { get '/central', params: {}, headers: headers }
@@ -32,6 +33,21 @@ RSpec.describe 'Centrals Controller', type: :request do
         expect(json['stores'].last['id']).to eq(store_2.id)
         expect(json['users'].last['id']).to eq(employee_2.id)
         expect(json['address']['id']).to eq(central.address.id)
+      end
+    end
+  end
+
+  describe 'GET /active_menu/:store_id' do
+    let!(:menu) { create(:menu, central_id: store.central_id, active: true) }
+    before { get "/active_menu/#{store.id}", params: {}, headers: headers }
+    
+    context 'when home exists' do
+      it 'returns status code 200' do
+        expect(response).to have_http_status(200)
+      end
+
+      it 'returns menu object' do
+        expect(json.first["id"]).to eq(menu.id)
       end
     end
   end

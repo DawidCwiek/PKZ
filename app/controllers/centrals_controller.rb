@@ -4,6 +4,11 @@ class CentralsController < ApplicationController
     json_response(@central, :ok)
   end
 
+  def active_menu
+    @menu = current_user.stores.find(params[:store_id]).central.menu.where(active: true)
+    json_response(@menu, :ok)
+  end
+
   def create_store
     @central = current_user.centrals.find(params[:central_id])
     @store = @central.stores.new(store_params)
