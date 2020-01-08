@@ -4,6 +4,6 @@ class Menu < ApplicationRecord
   validates :name, uniqueness: { scope: :central_id }, presence: true
 
   def as_json(*)
-    super(include: :products)
+    super(include: { products: { methods: :image_url } })
   end
 end
