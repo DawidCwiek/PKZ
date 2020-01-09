@@ -6,6 +6,7 @@ class OrdersController < ApplicationController
     if @order.save
       add_products
       json_response(@order, :created)
+      socket_send_to_do_orders
     else
       json_response({ message: Message.item_not_created('Order'), errors: @order.errors }, :unprocessable_entity)
     end
@@ -14,11 +15,13 @@ class OrdersController < ApplicationController
   def update_issued
     @order = @store.orders.find(params[:order_id]).issued!
     json_response(nil, :no_content)
+    socket_send_to_do_orders
   end
 
   def to_do
     @orders = @store.orders.where(issued: false)
     json_response(@orders, :ok)
+    socket_send_to_do_orders
   end
 
   private
@@ -29,6 +32,10 @@ class OrdersController < ApplicationController
 
   def set_store
     @store = current_user.stores.find(params[:store_id])
+  end
+
+  def socket_send_to_do_orders
+    ActionCable.server.broadcast "store_#{@store.id}", data: @store.orders.where(issued: false)
   end
 
   def add_products
