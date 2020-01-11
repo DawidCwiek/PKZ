@@ -22,9 +22,9 @@ class CentralsController < ApplicationController
 
   def avg_centra_total_price
     total_arr = []
-    all_order = Order.includes(:store).where(stores: {central_id: params[:central_id]})
+    all_order = Order.includes(:store).where(stores: {central_id: current_user.centrals.first.id })
     group_order = all_order.where(created_at: 1.week.ago .. Time.now.end_of_day).group_by { |t| t.created_at.to_date }
-    quantity = current_user.centrals.find(params[:central_id]).stores.count
+    quantity = current_user.centrals.first.stores.count
 
     group_order.each { |key,value| total_arr.append({ day: key.strftime("%A"), value: avg_order(value, quantity) }) }
     total_arr.sort! { |a, b| Date.strptime("#{a[:day]}", '%A').wday <=> Date.strptime("#{b[:day]}", '%A').wday }
