@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   post 'signup', to: 'users#create'
   # central
   get '/central', to: 'centrals#user_central'
+  get '/central/:central_id/avg_total_price', to: 'centrals#avg_centra_total_price'
   get '/active_menu/:store_id', to: 'centrals#active_menu'
   post '/central/:central_id/store', to: 'centrals#create_store'
   # central menus
@@ -23,7 +24,8 @@ Rails.application.routes.draw do
   post '/central/:central_id/components', to: 'components#create'
   put '/central/:central_id/components/:component_id', to: 'components#update'
   delete '/central/:central_id/components/:component_id', to: 'components#destroy'
-
+  # store
+  get '/store/:store_id/total_price', to: 'stores#total_pirce_last_week'
   # orders
   post '/store/:store_id/orders', to: 'orders#create'
   put '/store/:store_id/orders/:order_id', to: 'orders#update_issued'
