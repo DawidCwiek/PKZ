@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   post 'signup', to: 'users#create'
   # central
   get '/central', to: 'centrals#user_central'
-  get '/central/:central_id/avg_total_price', to: 'centrals#avg_centra_total_price'
+  get '/central/avg_total_price', to: 'centrals#avg_centra_total_price'
   get '/active_menu/:store_id', to: 'centrals#active_menu'
   post '/central/:central_id/store', to: 'centrals#create_store'
   # central menus
