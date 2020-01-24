@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   post 'auth/login', to: 'authentication#authenticate'
   post 'signup', to: 'users#create'
+  delete 'users/:user_id', to: 'users#destroy'
   # central
   get '/central', to: 'centrals#user_central'
   get '/central/avg_total_price', to: 'centrals#avg_centra_total_price'

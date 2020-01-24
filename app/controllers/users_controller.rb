@@ -11,6 +11,15 @@ class UsersController < ApplicationController
     json_response({ message: Message.account_created }, :created)
   end
 
+  def destroy
+    if params[:store_id]
+      Store.find(params[store_id]).users.find(params[:user_id]).destroy
+    elsif params[central_id]
+      Central.find(params[central_id]).users.find(params[:user_id]).destroy
+    end
+    json_response(nil, :no_content)
+  end
+
   private
 
   def user_params
