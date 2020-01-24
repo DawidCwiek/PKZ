@@ -11,8 +11,8 @@ class StoresController < ApplicationController
   end
 
   def employees
-
-    json_response({data: total_arr}, :ok)
+    @data = @store.users.select(%w[id name surname email phone_number])
+    json_response({data: @data}, :ok)
   end
 
   private 
