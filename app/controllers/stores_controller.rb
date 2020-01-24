@@ -5,8 +5,13 @@ class StoresController < ApplicationController
     total_arr = []
     total_priice_sum = @store.orders.where(created_at: 1.week.ago .. Time.now.end_of_day).group('created_at::date').sum(:total_price)
 
-    total_priice_sum.each { |key,value| total_arr.append({ day: key.strftime("%A"), value: value }) }
-    total_arr.sort! { |a, b| Date.strptime("#{a[:day]}", '%A').wday <=> Date.strptime("#{b[:day]}", '%A').wday }
+    total_priice_sum.each { |key,value| total_arr.append({ day: key, value: value }) }
+    total_arr.sort! { |a, b| a[:day].wday <=> b[:day].wday }
+    json_response({data: total_arr}, :ok)
+  end
+
+  def employees
+
     json_response({data: total_arr}, :ok)
   end
 

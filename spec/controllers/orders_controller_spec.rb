@@ -56,7 +56,7 @@ RSpec.describe 'Orders Controller', type: :request do
     let!(:order_3) { create(:order, store_id: store.id) }
     let!(:order_4) { create(:order, store_id: store.id) }
     context 'to_do' do
-      before { get "/store/#{store.id}/orders/to_do", params: {}, headers: headers }
+      before { get "/store/#{store.id}/orders/", params: {}, headers: headers }
 
       it 'update_issued' do
         expect(json.count).to eq(4)

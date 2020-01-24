@@ -26,8 +26,8 @@ class CentralsController < ApplicationController
     group_order = all_order.where(created_at: 1.week.ago .. Time.now.end_of_day).group_by { |t| t.created_at.to_date }
     quantity = current_user.centrals.first.stores.count
 
-    group_order.each { |key,value| total_arr.append({ day: key.strftime("%A"), value: avg_order(value, quantity) }) }
-    total_arr.sort! { |a, b| Date.strptime("#{a[:day]}", '%A').wday <=> Date.strptime("#{b[:day]}", '%A').wday }
+    group_order.each { |key,value| total_arr.append({ day: key, value: avg_order(value, quantity) }) }
+    total_arr.sort! { |a, b| a[:day].wday <=> b[:day].wday }
     json_response({data: total_arr}, :ok)
   end
 
