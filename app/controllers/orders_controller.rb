@@ -18,10 +18,9 @@ class OrdersController < ApplicationController
     socket_send_to_do_orders
   end
 
-  def to_do
-    @orders = @store.orders.where(issued: false)
+  def index
+    @orders = @store.orders
     json_response(@orders, :ok)
-    socket_send_to_do_orders
   end
 
   private
