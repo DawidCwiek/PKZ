@@ -12,7 +12,6 @@ class UsersController < ApplicationController
   end
 
   def destroy
-    byebug
     if params[:store_id]
       Store.find(params[:store_id]).users.find(params[:user_id]).destroy
     elsif params[:central_id]
