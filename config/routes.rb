@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   post 'auth/login', to: 'authentication#authenticate'
   post 'signup', to: 'users#create'
+  delete 'users/:user_id', to: 'users#destroy'
   # central
   get '/central', to: 'centrals#user_central'
   get '/central/avg_total_price', to: 'centrals#avg_centra_total_price'
@@ -26,10 +27,11 @@ Rails.application.routes.draw do
   delete '/central/:central_id/components/:component_id', to: 'components#destroy'
   # store
   get '/store/:store_id/total_price', to: 'stores#total_pirce_last_week'
+  get '/store/:store_id/employees', to: 'stores#employees'
   # orders
   post '/store/:store_id/orders', to: 'orders#create'
   put '/store/:store_id/orders/:order_id', to: 'orders#update_issued'
-  get '/store/:store_id/orders/to_do', to: 'orders#to_do'
+  get '/store/:store_id/orders/', to: 'orders#index'
 
   mount ActionCable.server => '/cable'
 end
