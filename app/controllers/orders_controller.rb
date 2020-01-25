@@ -30,7 +30,7 @@ class OrdersController < ApplicationController
   end
 
   def set_store
-    @store = current_user.stores.find(params[:store_id])
+    @store = Store.find(params[:store_id])
   end
 
   def socket_send_to_do_orders

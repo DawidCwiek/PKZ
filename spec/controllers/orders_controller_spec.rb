@@ -60,7 +60,7 @@ RSpec.describe 'Orders Controller', type: :request do
 
       it 'update_issued' do
         expect(json.count).to eq(4)
-        expect(json.last["id"]).to eq(order_4.id)
+        expect(json.last["id"]).to eq(order.id)
       end
     end
   end
