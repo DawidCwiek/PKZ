@@ -19,7 +19,7 @@ class OrdersController < ApplicationController
   end
 
   def index
-    @orders = @store.orders
+    @orders = @store.orders.order('created_at DESC')
     json_response(@orders, :ok)
   end
 
