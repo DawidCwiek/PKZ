@@ -5,8 +5,9 @@ class AuthenticationController < ApplicationController
     auth_token = AuthenticateUser.new(auth_params[:email], auth_params[:password]).call
     @user = User.find_by(email: auth_params[:email])
     @store = @user.stores.first
+    @worker = @user.workers.first
     @central = @user.centrals.first
-    json_response(auth_token: auth_token, home: { central: @central, store: @store })
+    json_response(auth_token: auth_token, home: { central: @central, store: @store, worker: @worker })
   end
 
   private
